@@ -45,6 +45,7 @@ const Slider = () => {
             left: "10px",
             top: "50%",
             color: "white",
+            zIndex:'1000'
           }}
         >
           <button onClick={handlePrev}>prev</button>
