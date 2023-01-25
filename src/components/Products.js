@@ -1,6 +1,14 @@
-import { BrowserRouter, Routes, Route,Outlet,Link,useLocation } from "react-router-dom";
+import {
+  BrowserRouter,
+  Routes,
+  Route,
+  Outlet,
+  Link,
+  useLocation,
+} from "react-router-dom";
 import React from "react";
 import omr from "../resources/products/omr1.jpg";
+import db from "../resources/db.js";
 const Products = () => {
   const Product = (props) => {
     return (
@@ -73,15 +81,11 @@ const Products = () => {
             <span className="text-3xl font-bold text-gray-900 dark:text-white">
               {props.price}
             </span>
-            <Link to='../productpage' state={{id:props.id}}>
-
-            <button
-              className="text-white bg-omronBlue hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-              >
-                
-              სრულად
-            </button>
-                </Link>
+            <Link to="../productpage" state={{ id: props.id }}>
+              <button className="text-white bg-omronBlue hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                სრულად
+              </button>
+            </Link>
           </div>
         </div>
       </div>
@@ -97,7 +101,7 @@ const Products = () => {
 • მარაოს ფორმის მანჟეტი (იმეორებს მკლავის ანატომიურ ფორმას) 
 მანჟეტის ზომა: CM 22-32 სმ."
           price="50.00 ₾"
-          id='1'
+          id="1"
         />
         <Product name="omron m6" price="50.00 ₾" />
         <Product name="omron m6" price="50.00 ₾" />
@@ -127,46 +131,59 @@ const Products = () => {
   };
   const Layout = () => {
     return (
-        <>
-      <div className="drawer w-2/6 flex flex-col bg-omronBlue text-white items-start pt-6 lg:w-1/6 h-screen">
-        <Link to='/presures'>
+      <>
+        <div className="drawer w-2/6 flex flex-col bg-omronBlue text-white items-start pt-6 lg:w-1/6 h-screen">
+          <Link to="/presures">
+            <button className="p-2 rounded-xl ml-2">წნევის აპარატი</button>
+          </Link>
+          <Link to="/nebuliser">
+            <button className="p-2 rounded-xl ml-2">ნებულაიზერი</button>
+          </Link>
 
-        <button className="p-2 rounded-xl ml-2">წნევის აპარატი</button>
-        </Link>
-        <Link to='/nebuliser'>
-
-        <button className="p-2 rounded-xl ml-2">ნებულაიზერი</button>
-        </Link>
-        
-        <button className="p-2 rounded-xl ml-2">სასწორი</button>
-        <button className="p-2 rounded-xl ml-2">თერმომეტრი</button>
-        <button className="p-2 rounded-xl ml-2">აქსესუარები</button>
-      </div>
+          <button className="p-2 rounded-xl ml-2">სასწორი</button>
+          <button className="p-2 rounded-xl ml-2">თერმომეტრი</button>
+          <button className="p-2 rounded-xl ml-2">აქსესუარები</button>
+        </div>
         <Outlet />
-        </>
+      </>
     );
   };
-  const ProductPage = ()=>{
+  const ProductPage = () => {
     let { state } = useLocation();
-    console.log(state,11111)
+    console.log(db, 11111);
+    const product = db.filter((item) => item.id == state.id);
+    console.log(product, 2222);
     return (
-        <div className="w-4/6 flex flex-wrap justify-center lg:w-5/6">
-            prod {state.id}
-            </div>
-    )
-  }
+      <div className="w-4/6 flex flex-col items-center flex-wrap justify-center lg:w-5/6">
+        <h1 className="text-3xl mt-4">{product[0].name}</h1>
+        <div className="w-full">
+        {product[0].videoSrc}
+        </div>
+        <div className="img flex justify-center">
+          <img src={omr} className="w-1/5 border-2 rounded-xl shadow m-2 p-2" />
+          <img src={omr} className="w-1/5 border-2 rounded-xl shadow m-2 p-2" />
+          <img src={omr} className="w-1/5 border-2 rounded-xl shadow m-2 p-2" />
+          <img src={omr} className="w-1/5 border-2 rounded-xl shadow m-2 p-2" />
+        </div>
+        <div className="w-1/2 p-2 m-2 ">{product[0].descr}</div>
+        <div className="footer">
+            <div> ფასი : {product[0].price}</div>
+        </div>
+      </div>
+    );
+  };
   return (
     <div className="flex flex-wrap justify-center">
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<Layout />}>
-          <Route index element={<Presures />} />
-          <Route path="presures" element={<Presures />} />
-          <Route path="nebuliser" element={<Nebuliser />} />
-          <Route path="productpage" element={<ProductPage />} />
-        </Route>
-      </Routes>
-    </BrowserRouter>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<Layout />}>
+            <Route index element={<Presures />} />
+            <Route path="presures" element={<Presures />} />
+            <Route path="nebuliser" element={<Nebuliser />} />
+            <Route path="productpage" element={<ProductPage />} />
+          </Route>
+        </Routes>
+      </BrowserRouter>
     </div>
   );
 };
