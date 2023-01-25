@@ -132,7 +132,7 @@ const Products = () => {
   const Layout = () => {
     return (
       <>
-        <div className="drawer w-2/6 flex flex-col bg-omronBlue text-white items-start pt-6 lg:w-1/6 h-screen">
+        <div className="drawer w-2/6 flex flex-col bg-omronBlue text-white items-start pt-6 lg:w-1/6 h-auto">
           <Link to="/presures">
             <button className="p-2 rounded-xl ml-2">წნევის აპარატი</button>
           </Link>
@@ -155,7 +155,7 @@ const Products = () => {
     console.log(product, 2222);
     return (
       <div className="w-4/6 flex flex-col items-center flex-wrap justify-center lg:w-5/6">
-        <h1 className="text-3xl mt-4">{product[0].name}</h1>
+        <h1 className="text-3xl mt-4 text-omronBlue mb-4 ">{product[0].name}</h1>
         <div className="w-full">
         {product[0].videoSrc}
         </div>
@@ -165,7 +165,7 @@ const Products = () => {
           <img src={omr} className="w-1/5 border-2 rounded-xl shadow m-2 p-2" />
           <img src={omr} className="w-1/5 border-2 rounded-xl shadow m-2 p-2" />
         </div>
-        <div className="w-1/2 p-2 m-2 ">{product[0].descr}</div>
+        <div className="w-full p-2 m-2 ">{product[0].descr}</div>
         <div className="footer">
             <div> ფასი : {product[0].price}</div>
         </div>
