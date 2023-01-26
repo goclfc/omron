@@ -9,6 +9,8 @@ import {
 import React from "react";
 import omr from "../resources/products/omr1.jpg";
 import db from "../resources/db.js";
+import japan from "../resources/images/japan.png";
+import waranty from "../resources/images/waranty.png";
 const Products = () => {
   const Product = (props) => {
     return (
@@ -132,7 +134,10 @@ const Products = () => {
   const Layout = () => {
     return (
       <>
-        <div className="drawer w-2/6 flex flex-col bg-omronBlue text-white items-start pt-6 lg:w-1/6 h-auto">
+        <div
+          className="drawer w-2/6 flex flex-col bg-omronBlue text-white items-start pt-6 lg:w-1/6 h-auto"
+          style={{ minHeight: "90vh" }}
+        >
           <Link to="/presures">
             <button className="p-2 rounded-xl ml-2">წნევის აპარატი</button>
           </Link>
@@ -154,21 +159,40 @@ const Products = () => {
     const product = db.filter((item) => item.id == state.id);
     console.log(product, 2222);
     return (
-      <div className="w-4/6 flex flex-col items-center flex-wrap justify-center lg:w-5/6">
-        <h1 className="text-3xl mt-4 text-omronBlue mb-4 ">{product[0].name}</h1>
-        <div className="w-full">
-        {product[0].videoSrc}
+      <div className="w-4/6 flex items-center flex-wrap justify-center lg:w-5/6">
+        <div className="img flex justify-center w-full lg:w-1/2">
+          <div className="left-panel w-1/4 m-2">
+            <img src={omr} className="w-full border-2 rounded-xl shadow m-2" />
+            <img src={omr} className="w-full border-2 rounded-xl shadow m-2" />
+            <img src={omr} className="w-full border-2 rounded-xl shadow m-2" />
+            <img src={omr} className="w-full border-2 rounded-xl shadow m-2" />
+          </div>
+          <div className="main-photo">
+            <img src={omr} />
+          </div>
         </div>
-        <div className="img flex justify-center">
-          <img src={omr} className="w-1/5 border-2 rounded-xl shadow m-2 p-2" />
-          <img src={omr} className="w-1/5 border-2 rounded-xl shadow m-2 p-2" />
-          <img src={omr} className="w-1/5 border-2 rounded-xl shadow m-2 p-2" />
-          <img src={omr} className="w-1/5 border-2 rounded-xl shadow m-2 p-2" />
+        <div className="w-full lg:w-1/2 p-4 flex h-full flex-col border-l-2">
+          <div className="m-4 flex items-center border-b-2 pb-4">
+            <img src={japan} style={{ width: "80px" }} />
+            <p className="ml-4 text-omronBlue text-xl">
+              #1 რეკომენდებული ბრენდი სამედიცინო სფეროში
+            </p>
+          </div>
+          <h1 className="text-3xl mt-4 text-omronBlue mb-4 text-center">
+            {product[0].name}
+          </h1>
+          <p className="border-b-2 pb-2">{product[0].descr}</p>
+          <div className="details p-2">
+            <div className="waranty" style={{height:'70px'}}>
+                <img src={waranty} style={{height:'150px'}}/>
+            <div className="price text-omronBlue text-3xl p-2 m-2">ფასი : {product[0].price} ₾</div>
+            <div className="buynow p-2 m-2 rounded-xl bg-omronBlue text-white flex w-20 justify-center">შეძენა</div>
+            </div>
+          </div>
         </div>
-        <div className="w-full p-2 m-2 ">{product[0].descr}</div>
-        <div className="footer">
+        {/* <div className="footer">
             <div> ფასი : {product[0].price}</div>
-        </div>
+        </div> */}
       </div>
     );
   };
