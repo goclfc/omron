@@ -186,7 +186,7 @@ const Products = () => {
             <div className="waranty" style={{height:'70px'}}>
                 <img src={waranty} style={{height:'150px'}}/>
             <div className="price text-omronBlue text-3xl p-2 m-2">ფასი : {product[0].price} ₾</div>
-            <div className="buynow p-2 m-2 rounded-xl bg-omronBlue text-white flex w-20 justify-center">შეძენა</div>
+            <div className="buynowbtn p-2 m-2 rounded-xl bg-omronBlue text-white flex w-20 justify-center">შეძენა</div>
             </div>
           </div>
         </div>
