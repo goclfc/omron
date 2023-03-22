@@ -1,3 +1,4 @@
+import React, { useState, useEffect } from "react";
 import {
   BrowserRouter,
   Routes,
@@ -6,12 +7,32 @@ import {
   Link,
   useLocation,
 } from "react-router-dom";
-import React from "react";
 import omr from "../resources/products/omr1.jpg";
 import db from "../resources/db.js";
 import japan from "../resources/images/japan.png";
 import waranty from "../resources/images/waranty.png";
 const Products = () => {
+  const [data, setData] = useState({});
+
+  const url = "https://omrongeocms.herokuapp.com/";
+  useEffect(() => {
+    var requestOptions = {
+      method: "GET",
+      redirect: "follow",
+    };
+
+    fetch(
+      "https://omrongeocms.herokuapp.com/api/categories?populate=*",
+      requestOptions
+    )
+      .then((response) => response.json())
+      .then((result) => {
+        console.log(result);
+        setData(result);
+      })
+      .catch((error) => console.log("error", error));
+  }, []);
+  console.log(data);
   const Product = (props) => {
     return (
       <div className="w-full max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 m-2">
@@ -183,10 +204,14 @@ const Products = () => {
           </h1>
           <p className="border-b-2 pb-2">{product[0].descr}</p>
           <div className="details p-2">
-            <div className="waranty" style={{height:'70px'}}>
-                <img src={waranty} style={{height:'150px'}}/>
-            <div className="price text-omronBlue text-3xl p-2 m-2">ფასი : {product[0].price} ₾</div>
-            <div className="buynowbtn p-2 m-2 rounded-xl bg-omronBlue text-white flex w-20 justify-center">შეძენა</div>
+            <div className="waranty" style={{ height: "70px" }}>
+              <img src={waranty} style={{ height: "150px" }} />
+              <div className="price text-omronBlue text-3xl p-2 m-2">
+                ფასი : {product[0].price} ₾
+              </div>
+              <div className="buynowbtn p-2 m-2 rounded-xl bg-omronBlue text-white flex w-20 justify-center">
+                შეძენა
+              </div>
             </div>
           </div>
         </div>
